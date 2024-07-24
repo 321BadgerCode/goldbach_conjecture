@@ -12,7 +12,7 @@
 
 Welcome to **Goldbach Conjecture**! Goldbach's Conjecture theorizes that `every even integer greater than 2 can be expressed as the sum of two prime numbers`.  
   
-In mathematical notation, this can be expressed as:
+In mathematical notation, this can be expressed as:  
 $$\forall n \in \mathbb{N}, n \ even, n > 2 \Rightarrow \exists p, q \in \mathbb{P}, p + q = n$$
 
 > [!NOTE]
