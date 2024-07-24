@@ -1,0 +1,184 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{tikz}
+
+\definecolor{bgcolor}{HTML}{282828}
+\definecolor{fgcolor}{HTML}{EBDBB2}
+\definecolor{emphcolor}{HTML}{FE8019}
+\definecolor{linkcolor}{HTML}{8EC07C}
+\definecolor{citecolor}{HTML}{B8BB26}
+
+\pagecolor{bgcolor}
+\color{fgcolor}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=linkcolor,
+	filecolor=linkcolor,
+	urlcolor=linkcolor,
+	citecolor=citecolor
+}
+
+\lstset{
+	backgroundcolor=\color{bgcolor},
+	basicstyle=\ttfamily\color{fgcolor},
+	keywordstyle=\color{emphcolor},
+	numberstyle=\color{linkcolor},
+	stringstyle=\color{citecolor},
+	commentstyle=\color{citecolor},
+	breaklines=true,
+	breakatwhitespace=false,
+	showstringspaces=false,
+	frame=single
+}
+
+\title{\textbf{\huge Exploring the Goldbach Conjecture}}
+\author{Badger Code}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Goldbach Conjecture is one of the oldest unsolved problems in number theory and mathematics as a whole. Proposed by Christian Goldbach in 1742, it posits that every even integer greater than two can be expressed as the sum of two prime numbers. This paper explores the historical context, the mathematical significance, and the current state of research regarding the Goldbach Conjecture. We will also discuss various approaches and computational efforts aimed at proving or disproving this conjecture.
+\end{abstract}
+
+\section{Introduction}
+The Goldbach Conjecture has intrigued mathematicians for centuries. Despite its simple statement, the conjecture has withstood numerous attempts at a proof. This paper delves into the origins of the conjecture, its implications in number theory, and the various strategies employed in the quest for a resolution. We aim to provide a comprehensive overview of the conjecture, highlighting both historical and modern perspectives.
+
+\section{Historical Background}
+Christian Goldbach first proposed the conjecture in a letter to Leonhard Euler in 1742. The original conjecture stated that every integer greater than 2 is the sum of three primes. Euler refined this to the now-standard form: every even integer greater than or equal to 4 can be expressed as the sum of two primes. Over the centuries, the conjecture has been tested for large numbers, yet a formal proof remains elusive.
+
+\section{Mathematical Significance}
+The Goldbach Conjecture is significant because it lies at the intersection of additive number theory and prime number theory. It implies deep properties about the distribution of prime numbers and their additive relationships. If proven, it would validate many subsidiary results that depend on its truth, making it a cornerstone in the field of number theory.
+
+\section{Related Mathematical Concepts}
+
+\subsection{Goldbach Partition}
+A Goldbach partition of an even integer \( 2n \) is a pair of prime numbers \( (p, q) \) such that:
+\begin{equation}
+2n = p + q
+\end{equation}
+where \( p \) and \( q \) are prime numbers. For example, the even number 10 can be expressed as the sum of the prime numbers 3 and 7, making \( (3, 7) \) a Goldbach partition of 10.
+\\\\
+The Goldbach partition function \( G(2n) \) counts the number of distinct pairs of prime numbers that sum to an even number \( 2n \). Formally:
+$$G(2n) = \left| \{ (p, q) \mid p + q = 2n, \, p \leq q, \, p \text{ and } q \text{ are primes} \} \right|$$
+
+\subsubsection{Goldbach's Comet}
+Goldbach's comet refers to the graphical representation of the number of distinct prime pairs that sum up to a given even number. Formally, for an even number \(2n\), the Goldbach function \(R(2n)\) is defined as:
+\begin{equation}
+R\left(2\,n\right)=\left\{
+\begin{aligned}
+& 2{r}(2n)-1\quad && \text{for } n \text{ prime}\\
+& 2{r}(2n)\quad && \text{for } n \text{ composite}
+\end{aligned}
+\right.
+\end{equation}
+where r\(2n\) denotes the number of Goldbach partitions of 2n.
+\\\\
+This function counts the number of ways an even number can be expressed as the sum of two primes. The graph of \(R(2n)\) as \(2n\) increases is called Goldbach's comet due to its appearance, where the number of representations typically increases with \(2n\), albeit irregularly.
+\\\\
+The first few values of \( r(2n) \) are as follows:
+\begin{align*}
+n &= 1: \quad && r(2) = 1 \quad \text{(1 partition: } 2 = 2)\\
+n &= 2: \quad && r(4) = 1 \quad \text{(1 partition: } 4 = 2 + 2)\\
+n &= 3: \quad && r(6) = 1 \quad \text{(1 partition: } 6 = 3 + 3)\\
+n &= 4: \quad && r(8) = 2 \quad \text{(2 partitions: } 8 = 3 + 5, 8 = 5 + 3)\\
+n &= 5: \quad && r(10) = 2 \quad \text{(2 partitions: } 10 = 3 + 7, 10 = 7 + 3)\\
+n &= 6: \quad && r(12) = 2 \quad \text{(2 partitions: } 12 = 5 + 7, 12 = 7 + 5)\\
+n &= 7: \quad && r(14) = 2 \quad \text{(2 partitions: } 14 = 3 + 11, 14 = 11 + 3)\\
+n &= 8: \quad && r(16) = 2 \quad \text{(2 partitions: } 16 = 3 + 13, 16 = 13 + 3)\\
+n &= 9: \quad && r(18) = 3 \quad \text{(3 partitions: } 18 = 5 + 13, 18 = 7 + 11, 18 = 11 + 7)\\
+n &= 10: \quad && r(20) = 2 \quad \text{(2 partitions: } 20 = 3 + 17, 20 = 17 + 3)
+\end{align*}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\draw[fgcolor, thick, ->] (0,0) -- (11,0) node[below] {n};
+		\draw[fgcolor, thick, ->] (0,0) -- (0,5) node[left] {r(2n)};
+
+		\foreach \n/\r in {1/1, 2/1, 3/1, 4/2, 5/2, 6/2, 7/2, 8/2, 9/3, 10/2} {
+			\fill[emphcolor] (\n, \r) circle (2pt);
+		}
+
+		\foreach \x in {1, 2, ..., 10} {
+			\node[below, fgcolor] at (\x, 0) {\x};
+		}
+		\foreach \y in {1, 2, 3, 4} {
+			\node[left, fgcolor] at (0, \y) {\y};
+		}
+
+		\foreach \y in {1, 2, 3, 4} {
+			\draw[fgcolor, dashed] (0, \y) -- (10, \y);
+		}
+	\end{tikzpicture}
+	\caption{Graphical representation of Goldbach's comet, showing the number of ways an even number can be expressed as the sum of two primes.}
+	\label{fig:goldbach_comet}
+\end{figure}
+
+\subsection{"Weak" Goldbach Conjecture}
+The weak Goldbach conjecture (also known as the odd Goldbach conjecture, the ternary Goldbach problem, or the 3-primes problem) states that all odd numbers greater than 5 can be expressed as the sum of three prime numbers.
+\begin{equation}
+n = \left\{
+\begin{aligned}
+& p_1 + p_2 + p_3 \mid n \geq 5,\, p_1, p_2, p_3 \text{ are primes}
+\end{aligned}
+\right\}
+\end{equation}
+where \( p_1 \), \( p_2 \), and \( p_3 \) are prime numbers. This conjecture was proven by Harald Helfgott in 2013. An example of this is the number 7, which can be expressed as \( 7 = 2 + 2 + 3 \).
+
+\subsection{Levy's Conjecture}
+Levy's conjecture is a specific case of the Goldbach conjecture, which posits that every odd number greater than 7 can be expressed as the sum of an odd prime number and an even semiprime (a product of two primes, not necessarily distinct). Formally:
+\begin{equation}
+2n + 1 = p + 2q
+\end{equation}
+where \( p \) and \( q \) are primes. For example, 9 can be written as \( 9 = 7 + 2 \cdot 1 \), where 7 is a prime and \( 2 \cdot 1 \) is a semiprime.
+
+\subsection{"Extended" Goldbach Conjecture}
+The extended Goldbach conjecture generalizes the original conjecture to include sums of any number of prime numbers. It posits that every integer greater than or equal to 2 can be expressed as the sum of \( k \) primes, for any \( k \geq 1 \). The most common form of the extended conjecture is the case where \( k = 4 \), which states that every integer \( n \geq 4 \) can be expressed as the sum of four primes:
+\begin{equation}
+n = p_1 + p_2 + p_3 + p_4
+\end{equation}
+where \( p_1, p_2, p_3, \) and \( p_4 \) are prime numbers. For example, the number 10 can be written as:
+\begin{equation}
+10 = 2 + 2 + 3 + 3
+\end{equation}
+
+Another generalization is to express any even integer \( 2n \) as the sum of \( k \) primes. The conjecture suggests that for sufficiently large \( n \), any even integer can be written as the sum of \( k \) primes for any \( k \geq 2 \). Mathematically, this is represented as:
+\begin{equation}
+2n = p_1 + p_2 + \cdots + p_k
+\end{equation}
+where \( p_1, p_2, \ldots, p_k \) are prime numbers.
+\\\\
+If we let \( R(n) \) denote the number of ways an even number \( n \) can be expressed as the sum of two primes, then the extended Goldbach conjecture can be expressed as:
+\begin{equation}
+R\left(n\right)\sim2\,\Pi_{2}\prod_{\stackrel{k=2}{p_{k}|n}}\frac{p_{k}-1}{p_{k}-2}\,\int_{2}^{n}\frac{d\,x}{\left(\ln x\right)^{2}},
+\end{equation}
+where \( p_k \) denotes the \( k \)th prime number and \( \Pi_2 \) is the twin primes constant.
+
+\subsubsection{Implications and Current Research}
+The extended Goldbach conjecture underscores the richness of prime numbers and their distributions. It highlights the additive properties of primes and extends the challenge of proving Goldbach-like statements to broader contexts. Current research involves computational verifications for large values of \( n \) and theoretical approaches to understand the underlying principles governing these additive representations. The extended conjecture, if proven, would offer profound insights into the nature of primes and their role in number theory.
+
+\section{Connections and Implications}
+The various forms of the Goldbach Conjecture and related conjectures all highlight different aspects of the additive properties of prime numbers. The relationships among these conjectures provide a deeper understanding of number theory and prime distribution. These conjectures are interconnected, and progress in proving one often provides insights into the others.
+
+\section{Current Research and Approaches}
+\subsection{Computational Verification}
+Modern computational techniques have verified the Goldbach Conjecture for even numbers up to exceedingly large limits. Notably, the conjecture has been confirmed for all even integers up to $4 \times 10^{18}$.
+
+\subsection{Analytic Methods}
+Analytic approaches involve techniques from complex analysis and the distribution of prime numbers. One prominent method is the Hardy-Littlewood circle method, which provides asymptotic formulas for the number of representations of an integer as the sum of primes.
+
+\subsection{Probabilistic Methods}
+Probabilistic models consider the likelihood of a number being expressed as the sum of two primes. While these methods do not provide a definitive proof, they offer insights into why the conjecture might be true for large numbers.
+
+\section{Conclusion}
+The Goldbach Conjecture remains one of the most tantalizing problems in mathematics. While significant progress has been made through computational and theoretical efforts, a formal proof has yet to be discovered. The pursuit of this proof continues to inspire mathematicians, driving advancements in number theory and computational techniques.
+
+\end{document}

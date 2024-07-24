@@ -1,0 +1,32 @@
+.TH GOLDBACH_CONJECTURE 1 "2024/7/24" "Goldbach Conjecture Manual"
+
+.SH NAME
+goldbach_conjecture \- find two prime numbers that sum up to a given number
+
+.SH SYNOPSIS
+goldbach_conjecture [options]
+
+.SH DESCRIPTION
+The goldbach_conjecture program takes in a positive even number (≥4) as input and finds two prime numbers that sum up to equal the given number.
+
+.SH OPTIONS
+.TP
+\-h, --help
+Displays the help menu.
+.TP
+\--version
+Displays the version number.
+.TP
+\-n NUMBER
+Specifies the input number for which the program will find the two prime numbers.
+
+.SH EXAMPLES
+To find the two prime numbers that sum up to 10, run the following command:
+.B
+goldbach_conjecture -n 10
+
+.SH EXIT STATUS
+The goldbach_conjecture program returns 0 if it successfully finds the two prime numbers. If an error occurs, a non-zero exit status is returned.
+
+.SH AUTHOR
+Written by Badger Code.
